@@ -1,0 +1,8 @@
+CREATE TABLE users (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+	flipy_id INT NOT NULL,
+    username VARCHAR(30) NOT NULL,
+    pwd VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
+);
