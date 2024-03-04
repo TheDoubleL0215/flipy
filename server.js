@@ -82,9 +82,31 @@ app.get('/register', (req, res) => {
     });
 });
 
+
+app.get('/getCreatedDecks', (req, res) => {
+    const flipy_id = req.cookies.token;
+    //console.log(flipy_id)
+    const verifyJWT = jwt.verify(flipy_id, process.env.JWT_SERVER_ACCES_TOKEN)
+    db.query(`SELECT * FROM ${verifyJWT.flipy_id}`, (error, result) => {
+        if(error){
+            console.log("Hiba a '/loginUser'-nél ", error)
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if(result.length > 0){
+                res.json({have_db: true});
+            }else{
+                res.json({have_db: false});
+            }
+
+        }
+    });
+});
+
+
+
 app.post('/registerNewUser', (req, res) =>{
     //Expected: {username, email, pwd}
-    console.log(req.body)
+    //console.log(req.body)
     db.query('SELECT * FROM users WHERE username = ? OR email = ?', [req.body.username, req.body.email], (error, result) => {
         if(error){
             console.log("Hiba a '/registerNewUser'-nél ", error)
@@ -93,23 +115,44 @@ app.post('/registerNewUser', (req, res) =>{
             //console.log(result)
             return res.json({exist: true})
         }else{
+            let createFlipyId = crypto.randomBytes(5).toString('hex')
             db.query('INSERT INTO users SET ?', {
                 username: req.body.username,
                 email: req.body.email,
                 pwd: sha256(req.body.pwd),
-                flipy_id: crypto.randomBytes(5).toString('hex')
+                flipy_id: createFlipyId
             }, (error, result) => {
                 if(error){
                     console.log("Hiba a /registerNewUser adatbázisával", error)
                 }else{
                     //console.log(result)
                     res.json({exist: false})
+                    createUsersTable(createFlipyId)
                 }
             })
 
         }
     })
 })
+
+
+function createUsersTable(flipyInDb) {
+    const sql = `
+    CREATE TABLE IF NOT EXISTS ${flipyInDb} (
+        id INT(11) NOT NULL AUTO_INCREMENT,
+        flipy_id INT NOT NULL,
+        username VARCHAR(30) NOT NULL,
+        deck_name VARCHAR(100) NOT NULL,
+        description VARCHAR(255) NOT NULL,
+        term VARCHAR(100) NOT NULL,
+        definition VARCHAR(100) NOT NULL,
+        PRIMARY KEY (id)
+      )
+    `;
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+    });
+}
 
 app.post('/loginUser', (req, res) => {
     //Expected: {username, pwd}
@@ -125,7 +168,7 @@ app.post('/loginUser', (req, res) => {
                     const token = jwt.sign({username: record.username, flipy_id: record.flipy_id}, process.env.JWT_SERVER_ACCES_TOKEN)
                     // Sütik beállítása
                     var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-                    res.cookie("token", token, { httpOnly: true , expires: inFifteenMinutes})
+                    res.cookie("token", token, { httpOnly: true, expires: inFifteenMinutes})
                     // Válasz küldése
                     res.json({exist: true, pwd_valid: true, jwt_token: token})
                     //res.redirect('/home')

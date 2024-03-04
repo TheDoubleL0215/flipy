@@ -6,3 +6,14 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS ${flipyInDb} (
+        id INT(11) NOT NULL AUTO_INCREMENT,
+        flipy_id INT NOT NULL,
+        username VARCHAR(30) NOT NULL,
+        deck_name VARCHAR(100) NOT NULL,
+        description VARCHAR(255) NOT NULL,
+        term VARCHAR(100) NOT NULL,
+        definition VARCHAR(100) NOT NULL,
+        PRIMARY KEY (id)
+      )

@@ -21,10 +21,10 @@ document.getElementById('newCardDisplayer').addEventListener('click', function()
     <div class="vr"></div>
     </div>
     <div class="flex-grow-1 p-2">
-    <input type="text" class="form-control form-control-lg text-primary" placeholder="Fogalom" aria-label="Fogalom" aria-describedby="basic-addon1" autocomplete="off">
+    <input type="text" class="form-control form-control-lg text-primary" placeholder="Fogalom" aria-label="Fogalom" name="termFieldName" required aria-describedby="basic-addon1" autocomplete="off">
     </div>
     <div class="flex-grow-1 p-2">
-    <input type="text" class="form-control form-control-lg text-primary" placeholder="Definíció" aria-label="Fogalom" aria-describedby="basic-addon1" autocomplete="off">
+    <input type="text" class="form-control form-control-lg text-primary" placeholder="Definíció" aria-label="Fogalom" name="defFieldName" required aria-describedby="basic-addon1" autocomplete="off">
     </div>
     <button type="button" class="btn-close removeCardBtn" aria-label="Close"></button>
     </div>
@@ -62,3 +62,11 @@ function updateCardNumbers() {
     });
 
 }
+
+document.getElementById("newDeckTitleDescriptionForm").addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const termFieldValues = document.getElementsByName("termFieldName")
+    for(var i = 0; i < termFieldValues.length; i++){
+        console.log(termFieldValues[i].value)
+    }
+})
