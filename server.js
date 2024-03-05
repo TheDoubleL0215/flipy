@@ -87,6 +87,7 @@ app.get('/getCreatedDecks', (req, res) => {
     const flipy_id = req.cookies.token;
     //console.log(flipy_id)
     const verifyJWT = jwt.verify(flipy_id, process.env.JWT_SERVER_ACCES_TOKEN)
+    console.log("Ez a flipyID: ", verifyJWT)
     db.query(`SELECT * FROM ${verifyJWT.flipy_id}`, (error, result) => {
         if(error){
             console.log("Hiba a '/loginUser'-nél ", error)
@@ -160,7 +161,7 @@ app.post('/loginUser', (req, res) => {
     db.query('SELECT * FROM users WHERE username = ?', [req.body.username], (error, result) => {
         //console.log("találat: ", result)
         if(error){
-            console.log("Hiba a '/loginUser'-nél ", error)
+            console.log("Recent hiba: Hiba a '/loginUser'-nél ", error)
         }
         if(result.length == 1){
             result.forEach(record => {
