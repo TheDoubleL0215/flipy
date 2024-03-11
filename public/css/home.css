@@ -1,0 +1,8 @@
+._dbCardBody{
+    transition: all 0.3s;
+}
+
+._dbCardBody:hover{
+    scale: 1.05;
+    background-color: rgb(46, 52, 57);
+}

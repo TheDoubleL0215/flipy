@@ -21,10 +21,10 @@ document.getElementById('newCardDisplayer').addEventListener('click', function()
     <div class="vr"></div>
     </div>
     <div class="flex-grow-1 p-2">
-    <input type="text" class="form-control form-control-lg text-primary" placeholder="Fogalom" aria-label="Fogalom" name="termFieldName" required aria-describedby="basic-addon1" autocomplete="off">
+        <input type="text" class="form-control form-control-lg" placeholder="Fogalom" aria-label="Fogalom" name="termFieldName" required aria-describedby="basic-addon1" autocomplete="off">
     </div>
     <div class="flex-grow-1 p-2">
-    <input type="text" class="form-control form-control-lg text-primary" placeholder="Definíció" aria-label="Fogalom" name="defFieldName" required aria-describedby="basic-addon1" autocomplete="off">
+        <input type="text" class="form-control form-control-lg" placeholder="Definíció" aria-label="Definíció" name="defFieldName" required aria-describedby="basic-addon1" autocomplete="off">
     </div>
     <button type="button" class="btn-close removeCardBtn" aria-label="Close"></button>
     </div>
@@ -65,8 +65,44 @@ function updateCardNumbers() {
 
 document.getElementById("newDeckTitleDescriptionForm").addEventListener("submit", async (e) => {
     e.preventDefault()
+    const deckName = document.getElementById("deckNameField").value
+
+    const deckDescr = document.getElementById("deckDescrField").value
+
+    allTermValues = []
+    allDefValues = []
+
     const termFieldValues = document.getElementsByName("termFieldName")
     for(var i = 0; i < termFieldValues.length; i++){
-        console.log(termFieldValues[i].value)
+        allTermValues.push(termFieldValues[i].value)
     }
+
+    const definitionFielValues = document.getElementsByName("defFieldName")
+    for(var i = 0; i < definitionFielValues.length; i++){
+        allDefValues.push(definitionFielValues[i].value)
+    }
+
+    deckElements = {deckName, deckDescr, allTermValues, allDefValues}
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(deckElements)
+    }
+
+    const deckElementsFetch = await fetch("/createNewDeck", options)
+    const deckElementsFetch_response = await deckElementsFetch.json()
+
+    const {savedToDb} = deckElementsFetch_response
+
+    if (savedToDb){
+        location.href = '/home'
+    }else{
+        document.getElementById("savedStatus").classList = "toast text-bg-danger"
+        const toastLiveExampleFail = document.getElementById('loginStatusToast')
+        const toastBootstrapFail = bootstrap.Toast.getOrCreateInstance(toastLiveExampleFail)
+        toastBootstrapFail.show()
+    }
+
 })

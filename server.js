@@ -83,25 +83,7 @@ app.get('/register', (req, res) => {
 });
 
 
-app.get('/getCreatedDecks', (req, res) => {
-    const flipy_id = req.cookies.token;
-    //console.log(flipy_id)
-    const verifyJWT = jwt.verify(flipy_id, process.env.JWT_SERVER_ACCES_TOKEN)
-    console.log("Ez a flipyID: ", verifyJWT)
-    db.query(`SELECT * FROM ${verifyJWT.flipy_id}`, (error, result) => {
-        if(error){
-            console.log("Hiba a '/loginUser'-nél ", error)
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else {
-            if(result.length > 0){
-                res.json({have_db: true});
-            }else{
-                res.json({have_db: false});
-            }
 
-        }
-    });
-});
 
 
 
@@ -171,8 +153,8 @@ app.post('/loginUser', (req, res) => {
                     var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
                     res.cookie("token", token, { httpOnly: true, expires: inFifteenMinutes})
                     // Válasz küldése
-                    res.json({exist: true, pwd_valid: true, jwt_token: token})
                     //res.redirect('/home')
+                    res.json({exist: true, pwd_valid: true, jwt_token: token})
                 }else{
                     //console.log("Hibás bejelentkezés!")
                     res.json({exist: true, pwd_valid: false})
@@ -185,6 +167,40 @@ app.post('/loginUser', (req, res) => {
 
     })
 })
+
+app.get('/doesUserHaveSet', authenticateToken, (req, res) => {
+    const verifiedUser = jwt.verify(req.cookies.token, process.env.JWT_SERVER_ACCES_TOKEN,)
+    db.query(`SELECT * FROM ${verifiedUser.flipy_id}`, (error, result) => {
+        if(error){
+            console.log("Hiba a 'haveDatasets'-nél ", error)
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if(result.length > 0){
+                res.json({haveDb: true})
+            }else{
+                res.json({haveDb: false})
+            }
+    
+        }
+    });
+})
+
+app.post('/createNewDeck', authenticateToken, (req, res) => {
+    // deckElements = {deckName, deckDescr, allTermValues, allDefValues}
+    const verifiedUser = jwt.verify(req.cookies.token, process.env.JWT_SERVER_ACCES_TOKEN,)
+    console.log(req.body)
+    for(var x = 0; x < req.body.allTermValues.length; x++){
+        db.query(`INSERT INTO ${verifiedUser.flipy_id} (id, flipy_id, username, deck_name, description, term, definition) VALUES (0, '${verifiedUser.flipy_id}', '${verifiedUser.username}', '${req.body.deckName}', '${req.body.deckDescr}', '${req.body.allTermValues[x]}', '${req.body.allDefValues[x]}')`, (err, result) => {
+            if (err) {
+                console.log(err)
+                res.json({savedToDb: false})
+            }
+        })
+
+    }
+    res.json({savedToDb: true})
+})
+
 
 function authenticateToken(req, res, next) {
     const token = req.cookies.token;

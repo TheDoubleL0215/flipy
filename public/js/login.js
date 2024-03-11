@@ -23,15 +23,7 @@ document.getElementById('loginForm').addEventListener("submit", async (event) =>
 
     switch (true) {
         case exist && pwd_valid:
-            /*console.log("Sikeres bejelentkezés a frontenden!");
-            document.getElementById("toastMessage").innerHTML = "Sikeres bejelentkezés!"
-            document.getElementById("loginStatusToast").classList = "toast text-bg-primary"
-            const toastLiveSuc = document.getElementById('loginStatusToast')
-            const toastBootstrapSuc = bootstrap.Toast.getOrCreateInstance(toastLiveSuc)
-            toastBootstrapSuc.show()
-            */
             location.href = '/home'
-
             break;
         case exist && !pwd_valid:
             console.log("Sikertelen jelszó a frontenden.");

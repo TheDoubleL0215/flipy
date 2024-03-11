@@ -29,8 +29,8 @@
                         </div>
                     </button>
                 </div>
-                <input type="text" class="form-control form-control mb-3" placeholder="Pakli neve" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
-                <textarea class="form-control form-control" placeholder="Leírás" id="exampleFormControlTextarea1" rows="3" style="resize: none;" autocomplete="off"></textarea>
+                <input type="text" class="form-control form-control mb-3" id="deckNameField" placeholder="Pakli neve" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
+                <textarea class="form-control form-control" placeholder="Leírás" id="deckDescrField" rows="3" style="resize: none;" autocomplete="off"></textarea>
         </div>
     </form>
         <div class="flex-column justify-content-center" >
@@ -43,12 +43,12 @@
                                     <h2 class="me-3 mb-0">1</h2>
                                     <div class="vr"></div>
                                 </div>
-                                <div class="flex-grow-1 p-2">
-                                    <input type="text" class="form-control form-control-lg text-primary" placeholder="Fogalom" aria-label="Fogalom" name="termFieldName" required aria-describedby="basic-addon1" autocomplete="off">
-                                </div>
-                                <div class="flex-grow-1 p-2">
-                                    <input type="text" class="form-control form-control-lg text-primary" placeholder="Definíció" aria-label="Definíció" name="defFieldName" required aria-describedby="basic-addon1" autocomplete="off">
-                                </div>
+                                    <div class="flex-grow-1 p-2">
+                                        <input type="text" class="form-control form-control-lg" placeholder="Fogalom" aria-label="Fogalom" name="termFieldName" required aria-describedby="basic-addon1" autocomplete="off">
+                                    </div>
+                                    <div class="flex-grow-1 p-2">
+                                        <input type="text" class="form-control form-control-lg" placeholder="Definíció" aria-label="Definíció" name="defFieldName" required aria-describedby="basic-addon1" autocomplete="off">
+                                    </div>
                                 <button type="button" class="btn-close opacity-0" disabled aria-label="Close"></button>
                             </div>
                         </div>
@@ -62,9 +62,16 @@
                     </button>
                 </div>
             </div>
-    
-    
-    
+            <div class="toast-container position-fixed  bottom-0 end-0 p-3">
+                <div id="savedStatus" class="toast text-bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div id="toastMessage" class="toast-body" style="font-weight: 500; color: rgb(0, 0, 0);">
+                            Sikertelen mentés!
+                        </div>
+                        <button type="button" class="btn-close btn-close-black me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" style="filter: none;"></button>
+                    </div>
+                </div>
+            </div> 
       
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/public/js/newDeck.js"></script>

@@ -1,17 +1,10 @@
 async function loadAllDecks(){
-    
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify("user")
-    }
-    
-    const fetchGetDecks = await fetch('/getCreatedDecks')
-    const resJson = await fetchGetDecks.json()
+
+    const haveDbBool = await fetch('/doesUserHaveSet')
+    const resJson = await haveDbBool.json()
     console.log(resJson)
-    if(resJson.have_db){
+    
+    if(resJson.haveDb == true){
         // Referencia a container div-re
         const cardsContainer = document.getElementById('allDeckContainer');
         const placeHolderContainer = document.getElementById('placeholderContainer');
