@@ -18,6 +18,17 @@
         <a class="navbar-brand" href="#">
           <img src="/public/img/mainLogo.svg" alt="Bootstrap" width="200">
         </a>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="profileNameShower" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end">
+            <li><a class="dropdown-item" href="#">Profil beállítások</a></li>
+            <li><a class="dropdown-item" href="#">Súgó</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="logout_aTag">Kijelentkezés</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
     <div class="container d-flex justify-content-between flex-wrap">
@@ -41,78 +52,8 @@
     <div class="container d-flex justify-content-center mt-5" style="display: none !important;" id="allDeckContainer" style="width: 100%;">
       <div class="card container">
         <div class="card-body">
-          <div class="container d-flex justify-content-center">
-            <div class="d-flex justify-content-start flex-wrap gap-3">
-              <div class="g-col">
-                <div class="card _dbCardBody" style="width: 18rem;">
-                  <div class="card-body" role="button">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <div class="">
-                      <div class="d-flex align-items-center gap-2">
-                        <img src="/public/img/cardsIcon.svg" style="width: 25px;" alt="">
-                        <p class="card-text text-center text-primary-emphasis pt-1">12db</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <div class="g-col">
-              <div class="card _dbCardBody" style="width: 18rem;">
-                <div class="card-body" role="button">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                  <div class="">
-                    <div class="d-flex align-items-center gap-2">
-                      <img src="/public/img/cardsIcon.svg" style="width: 25px;" alt="">
-                      <p class="card-text text-center text-primary-emphasis pt-1">12db</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="g-col">
-              <div class="card _dbCardBody" style="width: 18rem;">
-                <div class="card-body" role="button">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                  <div class="">
-                    <div class="d-flex align-items-center gap-2">
-                      <img src="/public/img/cardsIcon.svg" style="width: 25px;" alt="">
-                      <p class="card-text text-center text-primary-emphasis pt-1">12db</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="g-col">
-              <div class="card _dbCardBody" style="width: 18rem;">
-                <div class="card-body" role="button">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                  <div class="">
-                    <div class="d-flex align-items-center gap-2">
-                      <img src="/public/img/cardsIcon.svg" style="width: 25px;" alt="">
-                      <p class="card-text text-center text-primary-emphasis pt-1">12db</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="g-col">
-              <div class="card _dbCardBody" style="width: 18rem;">
-                <div class="card-body" role="button">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                  <div class="">
-                    <div class="d-flex align-items-center gap-2">
-                      <img src="/public/img/cardsIcon.svg" style="width: 25px;" alt="">
-                      <p class="card-text text-center text-primary-emphasis pt-1">12db</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="container d-flex justify-content-start">
+            <div class="d-flex justify-content-start flex-wrap gap-3" id="displayCardHolder">
             </div>
           </div>
         </div>

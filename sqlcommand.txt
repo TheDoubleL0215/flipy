@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id INT(11) NOT NULL AUTO_INCREMENT,
-	flipy_id INT(30) NOT NULL,
+	flipy_id VARCHAR(30) NOT NULL,
     username VARCHAR(30) NOT NULL,
     pwd VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE users (
 
 CREATE TABLE IF NOT EXISTS ${flipyInDb} (
         id INT(11) NOT NULL AUTO_INCREMENT,
-        flipy_id INT NOT NULL,
+        flipy_id VARCHAR(30) NOT NULL,
         username VARCHAR(30) NOT NULL,
         deck_name VARCHAR(100) NOT NULL,
         description VARCHAR(255) NOT NULL,

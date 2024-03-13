@@ -23,6 +23,7 @@ document.getElementById('registerForm').addEventListener("submit", async (event)
         const toastLiveExample = document.getElementById('sucLiveToast')
         const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
         toastBootstrap.show()
+        location.href = '/'
     }else if(resJson.exist == true){
         const toastLiveExample = document.getElementById('failLiveToast')
         const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)

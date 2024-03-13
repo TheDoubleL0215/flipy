@@ -123,7 +123,7 @@ function createUsersTable(flipyInDb) {
     const sql = `
     CREATE TABLE IF NOT EXISTS ${flipyInDb} (
         id INT(11) NOT NULL AUTO_INCREMENT,
-        flipy_id INT NOT NULL,
+        flipy_id VARCHAR(30) NOT NULL,
         username VARCHAR(30) NOT NULL,
         deck_name VARCHAR(100) NOT NULL,
         description VARCHAR(255) NOT NULL,
@@ -176,9 +176,15 @@ app.get('/doesUserHaveSet', authenticateToken, (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
             if(result.length > 0){
-                res.json({haveDb: true})
+                db.query(`SELECT deck_name, COUNT(*) as cardCount FROM ${verifiedUser.flipy_id} GROUP BY deck_name`, (error, result) => {
+                    if(error){
+                        console.log("Hiba a 'haveDatasets'-nél ", error)
+                        res.status(500).json({ error: 'Internal Server Error' });
+                    }
+                    res.json({haveDb: true, username: verifiedUser.username,  cardCount: result})
+                })
             }else{
-                res.json({haveDb: false})
+                res.json({haveDb: false, username: verifiedUser.username, })
             }
     
         }
@@ -188,7 +194,6 @@ app.get('/doesUserHaveSet', authenticateToken, (req, res) => {
 app.post('/createNewDeck', authenticateToken, (req, res) => {
     // deckElements = {deckName, deckDescr, allTermValues, allDefValues}
     const verifiedUser = jwt.verify(req.cookies.token, process.env.JWT_SERVER_ACCES_TOKEN,)
-    console.log(req.body)
     for(var x = 0; x < req.body.allTermValues.length; x++){
         db.query(`INSERT INTO ${verifiedUser.flipy_id} (id, flipy_id, username, deck_name, description, term, definition) VALUES (0, '${verifiedUser.flipy_id}', '${verifiedUser.username}', '${req.body.deckName}', '${req.body.deckDescr}', '${req.body.allTermValues[x]}', '${req.body.allDefValues[x]}')`, (err, result) => {
             if (err) {
