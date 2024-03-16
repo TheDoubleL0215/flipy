@@ -64,7 +64,3 @@ document.getElementById("createNewDeckDirecter").addEventListener("click", (e) =
 
     window.location.href = '/newDeck';
 })
-
-document.getElementById("logout_aTag").addEventListener("click", (e) => {
-    
-})

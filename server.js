@@ -37,6 +37,7 @@ db.connect((err) =>{
         console.log("Adatbázis csatlakozva ... http://localhost/phpmyadmin/")
     }
 })
+ 
 
 app.get('/home', authenticateToken, (req, res) => {
     fs.readFile(path.join(__dirname, 'public', 'home.html'), 'utf8', (err, data) => {
@@ -51,6 +52,17 @@ app.get('/home', authenticateToken, (req, res) => {
 
 app.get('/', (req, res) => {
     fs.readFile(path.join(__dirname, 'public', 'login.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});
+
+app.get('/deck', authenticateToken, (req, res) => {
+    fs.readFile(path.join(__dirname, 'public', 'deck.html'), 'utf8', (err, data) => {
         if (err) {
             console.error('Hiba a HTML fájl olvasása közben:', err);
             res.status(500).send('Internal Server Error');
@@ -206,6 +218,10 @@ app.post('/createNewDeck', authenticateToken, (req, res) => {
     res.json({savedToDb: true})
 })
 
+app.get("/logout", authenticateToken, (req, res) => {
+    res.clearCookie('token')
+    res.redirect('/')
+})
 
 function authenticateToken(req, res, next) {
     const token = req.cookies.token;

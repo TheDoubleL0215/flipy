@@ -1,0 +1,22 @@
+p{
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+._threeNavButton{
+    min-width: 300px;
+}
+
+._threeNavButtonCard{
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+._threeNavButtonCard:hover{
+    scale: 1.05;
+    background-color: rgb(46, 52, 57);
+}
+
+._cardPreview{
+    min-width: 300px;
+}
