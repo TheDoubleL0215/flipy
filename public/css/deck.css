@@ -9,14 +9,47 @@ p{
 
 ._threeNavButtonCard{
     transition: all 0.3s;
-    cursor: pointer;
+    /*cursor: pointer;*/
+    opacity: 0.5;
 }
 
-._threeNavButtonCard:hover{
+/*._threeNavButtonCard:hover{
     scale: 1.05;
     background-color: rgb(46, 52, 57);
-}
+}*/
 
-._cardPreview{
-    min-width: 300px;
+
+
+
+
+@media screen and (max-width: 450px) {
+    ._innerCardPreviewHolder {
+        flex-direction: column !important;
+        
+    }
+
+    ._twoInfoShower{
+        width: 100%;
+    }
+
+    ._termFlex{
+
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+
+    ._definitionFlex{
+
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+
+    ._twoDataHolder{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
 }

@@ -1,3 +1,5 @@
+localStorage.removeItem('selectedDeck')
+
 async function loadAllDecks(){
     const haveDbBool = await fetch('/doesUserHaveSet')
     const resJson = await haveDbBool.json()
@@ -39,6 +41,12 @@ async function loadAllDecks(){
             `
 
             document.getElementById("displayCardHolder").appendChild(displayCard)
+
+            displayCard.addEventListener('click', function() {
+              var cardTitle = this.querySelector('.card-title').textContent;
+              localStorage.setItem('selectedDeck', cardTitle)
+              window.location = '/deck'
+            });
         }
     }else{
         // Referencia a container div-re

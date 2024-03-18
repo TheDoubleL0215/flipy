@@ -203,6 +203,40 @@ app.get('/doesUserHaveSet', authenticateToken, (req, res) => {
     });
 })
 
+app.post('/requestDeckFromDb', authenticateToken, (req, res) => {
+    const verifiedUser = jwt.verify(req.cookies.token, process.env.JWT_SERVER_ACCES_TOKEN,)
+    db.query(`SELECT * FROM ${verifiedUser.flipy_id}`, (error, result) => {
+        if(error){
+            console.log("Hiba a 'haveDatasets'-nél ", error)
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            console.log(result)
+        }
+    });
+})
+
+app.post('/requestFromDeck', authenticateToken, (req, res) => {
+    const verifiedUser = jwt.verify(req.cookies.token, process.env.JWT_SERVER_ACCES_TOKEN,)
+    const searcDeckName = req.body.deckname
+    const verifiedUserusername = verifiedUser.username
+    db.query(`SELECT * FROM ${verifiedUser.flipy_id} WHERE deck_name = "${searcDeckName}"`, (error, result) => {
+        if(error){
+            console.log("Hiba a 'haveDatasets'-nél ", error)
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            let termArray = []
+            let defArray = []
+            result.forEach(element => {
+                termArray.push(element["term"])
+                defArray.push(element["definition"])
+            });
+
+            res.json({verifiedUserusername, searcDeckName, termArray, defArray})
+
+        }
+    });
+})
+
 app.post('/createNewDeck', authenticateToken, (req, res) => {
     // deckElements = {deckName, deckDescr, allTermValues, allDefValues}
     const verifiedUser = jwt.verify(req.cookies.token, process.env.JWT_SERVER_ACCES_TOKEN,)
@@ -216,6 +250,10 @@ app.post('/createNewDeck', authenticateToken, (req, res) => {
 
     }
     res.json({savedToDb: true})
+})
+
+app.post("/changeCard", authenticateToken, (req, res) => {
+    console.log(req.body)
 })
 
 app.get("/logout", authenticateToken, (req, res) => {

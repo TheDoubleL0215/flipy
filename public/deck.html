@@ -34,7 +34,7 @@
     <div class="container">
         <div class="d-flex flex-column">
             <div class="d-flex justify-content-center align-items-center">
-                <h1>deckname</h1>
+                <h1 id="deckNameh1"></h1>
             </div>
             <hr class="hr" />
             <div class="d-flex align-items-center justify-content-center gap-4 flex-wrap mt-3 mb-5">
@@ -43,7 +43,11 @@
                         <div>
                             <img src="/public/img/learnFlashcardLogo.svg" style="height: 50px;" alt="">
                         </div>
-                        <p class="fs-2">Flascard</p>
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="fs-2">Flashcard</p>
+                            <p class="fs-6">Hamarosan</p>
+                        </div>
+
                     </div>
                 </div>
                 <div class="card d-flex flex-grow-1 _threeNavButtonCard">
@@ -51,7 +55,10 @@
                         <div>
                             <img src="/public/img/learnSetLogo.svg" style="height: 50px;" alt="">
                         </div>
-                        <p class="fs-2">Tanulás</p>
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="fs-2">Tanulás</p>
+                            <p class="fs-6">Hamarosan</p>
+                        </div>
                     </div>
                 </div>
                 <div class="card d-flex flex-grow-1 _threeNavButtonCard">
@@ -59,73 +66,47 @@
                         <div>
                             <img src="/public/img/testSheetLogo.svg" style="height: 50px;" alt="">
                         </div>
-                        <p class="fs-2">Teszt</p>
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="fs-2">Teszt</p>
+                            <p class="fs-6">Hamarosan</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="container p-0 d-flex mt-5 d-flex flex-column gap-3 justify-content-center align-items-center _cardPreviewHolder">
-                <div class="card container d-flex p-2 _cardPreview">
-                    <div class="card-body d-flex flex-column justify-content-between" >
-                        <div class="d-flex p-2 mb-2 flex-grow-2">
-                            <h2 class="me-3 mb-0">1</h2>
-                            <div class="vr"></div>
-                            <div>
-                                <button type="button" class="btn" aria-label="Edit">
-                                    <img src="/public/img/editCardLogo.svg" alt="">
-                                </button>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="p-1 d-flex flex-column gap-2 flex-grow-1">
-                                <h6 class="card-text m-0 text-body-secondary">Fogalom</h6>
-                                <h3 class="card-title m-0">Lorem ipsum dolor sit amet.</h3>            
-                            </div>
-                            <div class="p-1 d-flex text-end flex-column gap-2 flex-grow-1">
-                                <h6 class="card-text m-0 text-body-secondary">Definíció</h6>
-                                <h3 class="card-title m-0">Lorem ipsum dolor sit amet.</h3>            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card container d-flex p-2 _cardPreview">
-                    <div class="card-body d-flex flex-column justify-content-between" >
-                        <div class="d-flex p-2 mb-2 flex-grow-2">
-                            <h2 class="me-3 mb-0">2</h2>
-                            <div class="vr"></div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="p-1 d-flex flex-column gap-2 flex-grow-1">
-                                <h6 class="card-text m-0 text-body-secondary">Fogalom</h6>
-                                <h3 class="card-title m-0">Lorem ipsum dolor sit amet.</h3>            
-                            </div>
-                            <div class="p-1 d-flex text-end flex-column gap-2 flex-grow-1">
-                                <h6 class="card-text m-0 text-body-secondary">Definíció</h6>
-                                <h3 class="card-title m-0">Lorem ipsum dolor sit amet.</h3>            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card container d-flex p-2 _cardPreview">
-                    <div class="card-body d-flex flex-column justify-content-between" >
-                        <div class="d-flex p-2 mb-2 flex-grow-2">
-                            <h2 class="me-3 mb-0">3</h2>
-                            <div class="vr"></div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="p-1 d-flex flex-column gap-2 flex-grow-1">
-                                <h6 class="card-text m-0 text-body-secondary">Fogalom</h6>
-                                <h3 class="card-title m-0">Lorem ipsum dolor sit amet.</h3>            
-                            </div>
-                            <div class="p-1 d-flex text-end flex-column gap-2 flex-grow-1">
-                                <h6 class="card-text m-0 text-body-secondary">Definíció</h6>
-                                <h3 class="card-title m-0">Lorem ipsum dolor sit amet.</h3>            
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="container p-0 d-flex mt-5 d-flex flex-column gap-3 justify-content-center align-items-center _cardPreviewHolder" id="cardPreviewHolder">
+
             </div>
         </div>
     </div>
+    <div class="modal fade" id="changeCardInfos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Kártya szerkesztése</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Fogalom</label>
+                    <input type="text" class="form-control" id="changeTermModalInput">
+                </div>
+              </div>
+              <div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Definíció</label>
+                    <input type="text" class="form-control" id="changeDefModalInput">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="saveChangeModalBtn">Mentés</button>
+            </div>
+          </div>
+        </div>
+    </div>
+      
+      
 
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/public/js/deck.js"></script>
